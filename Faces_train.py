@@ -14,23 +14,12 @@ video_capture.set(cv2.CAP_PROP_FPS,10)
 def main():
 
 
-
-    # def capture_train_image():
-    #     video_capture = cv2.VideoCapture(0)
-    #     video_capture.set(cv2.CAP_PROP_FPS,10)
-    #     while (raw_input('Press q while ur done')!='q'):
-    #         ert, frame = video_capture.read()
-    #         cv2.imshow('Live', frame)
-    #             raw_input('Press 'd' if you like yourself in the video')
-    #             train_name = raw_input('Can you type your name')
-
-                
-
-
     """
     Testing methods
     """
     '''
+
+    Faces Folder must be placed inside the working directory
     #test_frame = cv2.imread('IMG_20170623_F214651.jpg')
     impath = 'KDEF'+os.sep+'AF01/AF01ANS.JPG'
     test_frame = cv2.imread('KDEF'+os.sep+'AF01/AF01ANS.JPG')
@@ -48,13 +37,13 @@ def main():
 
     random.shuffle(frame_pairs)
 
-    
+
     all_faces,all_labels = zip(*frame_pairs)
 
     #Convert labels from string to numeric
-    
+
     numeric_labels = face_utils.str_label_to_numeric(Faces.emotions,all_labels)
-    
+
     num_records = len(all_faces)
     train_frac = 0.99
     test_frac = 1-train_frac
@@ -77,7 +66,7 @@ def main():
         print ("createing model")
         fishface.train(train_faces, train_labels)
         fishface.save(MODEL_FILE)
-       
+
 
 
 #class EmotionClassifier:
@@ -99,11 +88,11 @@ class Faces:
 
     #Emotion list
     #emotions =  ["neutral", "anger", "contempt", "disgust", "fear",
-    #             "happy", "sadness", "surprise"] 
+    #             "happy", "sadness", "surprise"]
     #emotions = ['Rakshith','Peter','Abhik','Joe','Lucas','Tristen','Diana','Bill','Larry','Josh','Gutti','Appa','Amma']
     emotions = ['Rakshith','Noopy']
     face_ppl_dict = { 'RA':'Rakshith',
-   
+
                        'NP':'Noopy'}
                       # 'AP':'Appa',
                       # 'AM':'Amma'}
@@ -113,7 +102,7 @@ class Faces:
                         'S': 'straight',
                         'HR': 'half_right',
                         'FR': 'full_right',}
-                        
+
 
     def __init__(self,folder='Faces_name'):
         """
@@ -123,9 +112,9 @@ class Faces:
 
         #dict with emotion as key and list of files as value
         self.face_dict = defaultdict(list)
-        #Populate face_dict with pictures 
+        #Populate face_dict with pictures
         self._get_face_files('S')
-        
+
 
     def get_files_labels(self):
         """ Get a list of (image_file,emotion_label) from
@@ -152,20 +141,20 @@ class Faces:
         print "Number of images for each face"
         for key,val in self.face_dict.viewitems():
             print '{}:\t{}'.format(key,len(val))
-        
+
 
     def extract_face(self,fname):
-        ''' 
+        '''
         Extract letters 5 & 6 in filename to parse emotion of
-        image 
+        image
         '''
         bname = os.path.basename(fname)
         return Faces.face_ppl_dict[bname[4:6]]
 
-    
-    
 
-    
+
+
+
 
 
 
@@ -176,9 +165,9 @@ class FaceDetector:
         self.models_dir = models_dir
         #print self.models_dir
         self.model_file = os.path.abspath(self.models_dir+os.sep+'haarcascade_frontalface_default.xml')
-        
-         
-        ''' 
+
+
+        '''
         [ cv2.CascadeClassifier(
                                       self.dir+os.sep+'haarcascade_frontalface_alt2.xml'),
                           cv2.CascadeClassifier(
@@ -246,14 +235,14 @@ class FaceDetector:
             if cv2.waitKey(1) & 0xFF == ord('q'):
                 break
 
-                
+
     def identify_faces_in_frames_list(self,frames_list):
         """
         Given a list of image files, detect faces and return frames in each file
         Useful for segmenting out faces from a set of images
         """
         face_frames = []
-        
+
         for i,frame in enumerate(frames_list):
             #print frame.shape
             face_list = self.detect(frame)
@@ -261,7 +250,7 @@ class FaceDetector:
         return face_frames
 
     def extract_faces_from_frames_labels(self,frames,labels):
-        '''Given a list of frames and labels, 
+        '''Given a list of frames and labels,
         return frames containing faces from each frame'''
 
         ret_tup_list = []
