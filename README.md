@@ -1,23 +1,6 @@
 # Ekam
 
 This is a Face recognition and emotion classification program written in python.
-The program uses the KDEF dataset to train the emotion classification.
-
-## Software Dependencies
-
-- Python 2.7
-- OpenCV 2.4
-
-## Outline of the project
-
-This project consists of three parts, 
-1. Creating a dataset of the faces thats to be recognized
-2. Training the model
-3. Face recognition
-
-# Ekam
-
-This is a Face recognition and emotion classification program written in python.
 The program uses the KDEF http://www.emotionlab.se/resources/kdef dataset to train the emotion classification.
 
 ## Software Dependencies
